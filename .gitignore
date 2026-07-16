@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+# Produto de trabalho NUNCA vai para repositório público.
+# Parecer, tese, nome de cliente e credencial vivem no project knowledge.
+produto/
+clientes/
+*.parecer.md
+*.token
+.env
