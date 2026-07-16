@@ -1,0 +1,6 @@
+# força diff textual mesmo que o git hesite
+*.txt   text diff
+*.md    text diff
+*.tsv   text diff
+# normaliza finais de linha no repositório
+* text=auto eol=lf
