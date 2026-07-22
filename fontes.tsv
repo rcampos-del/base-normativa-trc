@@ -1,23 +1,27 @@
-# manifesto de fontes — arquivo, hierarquia, url oficial
-# atualizar aqui e rodar: make baixar
-# NOTA: baixar.sh cobre fontes Planalto (federais). Convênio/CGIBS/NT-CTE/estaduais-RJ
-#       têm origem fora do Planalto e são obtidos manualmente (URL abaixo p/ proveniência).
-LC-214-2025	02-complementar	https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214compilado.htm
-LC-227-2026	02-complementar	https://www.planalto.gov.br/ccivil_03/leis/lcp/Lcp227.htm
-LC-123-2006	02-complementar	https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123compilado.htm
-LC-192-2022	02-complementar	https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp192.htm
-EC-132-2023	01-constitucional	https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm
-LEI-11442-2007	03-ordinaria	https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11442.htm
-LEI-10209-2001	03-ordinaria	https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10209.htm
-LEI-13703-2018	03-ordinaria	https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/L13703.htm
-LEI-10833-2003	03-ordinaria	https://www.planalto.gov.br/ccivil_03/leis/2003/l10.833compilado.htm
-LEI-10637-2002	03-ordinaria	https://www.planalto.gov.br/ccivil_03/leis/2002/l10637compilado.htm
-DEC-12955-2026	04-decreto	https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/decreto/d12955.htm
-RES-CGIBS-6-2026	05-resolucao	https://www.gov.br/cgibs/  # portal do Comitê Gestor do IBS (obter manualmente)
-CONV-ICMS-106-1996	06-convenio	https://www.confaz.fazenda.gov.br/legislacao/convenios/1996/CV106_96
-NT-CTE-2025.001	07-nota-tecnica	https://www.cte.fazenda.gov.br/portal/  # Portal Nacional do CT-e (obter manualmente)
-RJ-LEI-2657-1996	08-estadual-rj	https://alerjln1.alerj.rj.gov.br/contlei.nsf/f25edae7e64db53b032564fe005262ef/01cc04eee53b3b30032564fb005c2ddf?OpenDocument
-RJ-LC-210-2023	08-estadual-rj	https://legislacao.fazenda.rj.gov.br/lei-complementar-no-210-de-21-de-julho-de-2023/
-RJ-DEC-27427-2000-LIVRO-IX	08-estadual-rj	https://legislacao.fazenda.rj.gov.br/80777/
-RJ-DEC-47057-2020-FOT	08-estadual-rj	https://legislacao.fazenda.rj.gov.br/wcc42000008131/
-RJ-DEC-50248-2026-FOT	08-estadual-rj	https://legislacao.fazenda.rj.gov.br/decreto-no-50-248-de-23-de-marco-de-2026/
+# ACERVO NORMATIVO — Nahid, De Vitto & Campos Advogados
+# Colunas: arquivo <TAB> setor <TAB> jurisdicao <TAB> hierarquia <TAB> url_oficial
+#
+# setor:      transversal | trc | (novos setores entram aqui)
+#             "transversal" = vale para qualquer setor. SEMPRE incluído em toda consulta.
+# jurisdicao: federal | nacional | rj | (novas UFs entram aqui)
+#             "nacional" = CONFAZ / CGIBS / notas técnicas de âmbito nacional.
+#
+# Só URLs do Planalto são baixáveis por script. As demais (CONFAZ, CGIBS, SEFAZ-RJ,
+# ALERJ, CT-e) exigem obtenção manual — o baixar.sh avisa e pula.
+#
+EC-132-2023	transversal	federal	01-constitucional	https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm
+LC-214-2025	transversal	federal	02-complementar	https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214compilado.htm
+LC-227-2026	transversal	federal	02-complementar	https://www.planalto.gov.br/ccivil_03/leis/lcp/Lcp227.htm
+LC-192-2022	transversal	federal	02-complementar	https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp192.htm
+LEI-10637-2002	transversal	federal	03-ordinaria	https://www.planalto.gov.br/ccivil_03/leis/2002/l10637compilado.htm
+LEI-10833-2003	transversal	federal	03-ordinaria	https://www.planalto.gov.br/ccivil_03/leis/2003/l10.833compilado.htm
+DEC-12955-2026	transversal	federal	04-decreto	https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/decreto/d12955.htm
+RES-CGIBS-6-2026	transversal	nacional	05-infralegal	https://www.gov.br/cgibs/
+LEI-11442-2007	trc	federal	03-ordinaria	https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11442.htm
+CONV-ICMS-106-1996	trc	nacional	07-convenio	https://www.confaz.fazenda.gov.br/legislacao/convenios/1996/CV106_96
+NT-CTE-2025.001	trc	nacional	06-documento-fiscal	https://www.cte.fazenda.gov.br/portal/
+RJ-LEI-2657-1996	transversal	rj	03-ordinaria	https://alerjln1.alerj.rj.gov.br/contlei.nsf/f25edae7e64db53b032564fe005262ef/01cc04eee53b3b30032564fb005c2ddf?OpenDocument
+RJ-LC-210-2023	transversal	rj	02-complementar	https://legislacao.fazenda.rj.gov.br/lei-complementar-no-210-de-21-de-julho-de-2023/
+RJ-DEC-47057-2020-FOT	transversal	rj	04-decreto	https://legislacao.fazenda.rj.gov.br/wcc42000008131/
+RJ-DEC-50248-2026-FOT	transversal	rj	04-decreto	https://legislacao.fazenda.rj.gov.br/decreto-no-50-248-de-23-de-marco-de-2026/
+RJ-DEC-27427-2000-LIVRO-IX	trc	rj	04-decreto	https://legislacao.fazenda.rj.gov.br/80777/

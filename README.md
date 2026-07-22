@@ -1,42 +1,58 @@
 # Base Normativa — Nahid, De Vitto & Campos Advogados
 
-Acervo normativo versionado. Projeto inicial: **Reforma Tributária × Transporte Rodoviário de Cargas (TRC)**.
+Acervo normativo versionado, com integridade auditada arquivo a arquivo.
+
+Primeiro setor atacado: **Reforma Tributária × Transporte Rodoviário de Cargas (TRC)**.
+A estrutura, porém, é **multissetorial** desde o início — ver `TAXONOMIA.md`.
 
 ## Por que git
 
 Norma muda. Quando a LC 214 for alterada de novo, `make mudou` mostra **quais dispositivos**
 mudaram e a redação anterior — em vez de uma releitura de 500 artigos.
 
-## Estrutura
+## Como está organizado
 
-| pasta | o que é | pode editar? |
-|---|---|---|
-| `fontes/` | original oficial, como baixado. **Imutável.** É o que se junta a uma peça. | Nunca |
-| `texto/` | mesmo conteúdo, normalizado (um dispositivo por linha). É onde o diff funciona. | Só via `make normalizar` |
-| `caderno/` | extrações curadas por nicho (ex.: só os artigos que tocam o TRC) | Gerado |
-| `produto/` | pareceres, teses, checklists, matrizes. **Nosso trabalho.** | Sim |
-| `scripts/` | automação | Sim |
+Os textos normalizados ficam **na raiz**, um arquivo por norma. A classificação por setor e
+jurisdição é **metadado**, não pasta — porque uma norma pode servir a vários setores, e pasta
+obrigaria a escolher um lar só. O porquê está em `TAXONOMIA.md`.
 
-Hierarquia dentro de `fontes/`: `01-constitucional` → `02-complementar` → `03-ordinaria` →
-`04-decreto` → `05-infralegal` → `06-documento-fiscal` → `07-convenio`.
+| arquivo | o que é |
+|---|---|
+| `*.txt` | normas normalizadas (um dispositivo por linha). É onde o `git diff` funciona |
+| `fontes.tsv` | catálogo: arquivo, setor, jurisdição, hierarquia, URL oficial |
+| `MANIFESTO.md` | proveniência, reparos aplicados e SHA-256 de cada arquivo |
+| `TAXONOMIA.md` | como classificar e como entra setor ou UF nova |
+| `CLAUDE.md` | instruções de trabalho neste acervo |
+| `normalizar.py` | converte a norma em texto versionável, abortando se perder palavra |
+| `validar.py` | confere o SHA de cada `.txt` contra o `MANIFESTO.md` |
+| `mapear.py` | mapa de correspondência entre a LC 214 e seus regulamentos |
+| `baixar.sh` | baixa os originais do Planalto listados em `fontes.tsv` |
 
 ## Convenção de nomes
 
-    {TIPO}-{NÚMERO}-{ANO}
+    [UF-]{TIPO}-{NÚMERO}-{ANO}
 
-    EC-132-2023        LEI-11442-2007      RES-CGIBS-6-2026
-    LC-214-2025        DEC-12955-2026      NT-CTE-2025.001
-    LC-227-2026        CONV-ICMS-106-1996  ATO-RFB-CGIBS-1-2025
+    EC-132-2023        LEI-11442-2007      CONV-ICMS-106-1996
+    LC-214-2025        DEC-12955-2026      RJ-LEI-2657-1996
+    LC-227-2026        RES-CGIBS-6-2026    RJ-DEC-47057-2020-FOT
 
-**Sem sufixo de data e sem "_v2" ou "_final".** O git é o controle de versão — data no nome
-é justamente o que ele existe para eliminar. Para saber a versão: `git log texto/LC-214-2025.txt`.
+Normas estaduais levam o prefixo da UF. Federais e nacionais, não.
+
+**Sem sufixo de data e sem `_v2` ou `_final`.** O git é o controle de versão. Para saber a
+versão de um arquivo: `git log LC-214-2025.txt`.
 
 ## Uso
 
-    make baixar       # busca os originais do Planalto (fontes.tsv)
-    make normalizar   # fontes/ -> texto/
-    make validar      # confere que nada foi perdido na normalização
+    make validar      # confere a integridade de todos os textos
     make mudou        # o que mudou desde o último commit
+    make baixar       # rebaixa os originais do Planalto
+
+Para acrescentar uma norma nova:
+
+    python3 normalizar.py bruto.txt NOVA-NORMA-2026.txt   # aborta se perder palavra
+    # 1. acrescentar linha em fontes.tsv (com setor e jurisdição)
+    # 2. acrescentar linha na tabela do MANIFESTO.md (com o SHA)
+    make validar                                          # deve fechar sem falhas
 
 Ao atualizar uma norma, commit com a data da consulta:
 
@@ -45,9 +61,13 @@ Ao atualizar uma norma, commit com a data da consulta:
 ## Garantia de integridade
 
 `normalizar.py` compara palavra a palavra a fonte e o resultado, e **aborta** se houver
-qualquer divergência. O texto normalizado nunca é reescrito — só reformatado.
+divergência. O texto normalizado nunca é reescrito — só reformatado.
+
+`validar.py` recalcula o SHA-256 de cada arquivo e compara com o `MANIFESTO.md`, acusando
+arquivo alterado, arquivo sem registro e registro sem arquivo.
 
 ## Regra do projeto
 
-> Nada entra em `produto/` sem estar fundamentado em dispositivo lido em `texto/`.
+> Nada entra em parecer sem estar fundamentado em dispositivo lido neste acervo.
 > Síntese levanta hipótese; texto primário fundamenta.
+> `grep` acha string, não dispositivo — ler o artigo inteiro.

@@ -1,19 +1,14 @@
-.PHONY: baixar normalizar validar mudou tudo
+.PHONY: baixar validar mudou ajuda
 
-tudo: baixar normalizar validar
+ajuda:       ## lista os comandos
+	@grep -E '^[a-z]+:.*##' Makefile | sed 's/:.*##/ —/'
 
-baixar:      ## baixa os originais do Planalto conforme fontes.tsv
-	@bash scripts/baixar.sh
+baixar:      ## baixa os originais do Planalto conforme fontes.tsv (pula os manuais)
+	@bash baixar.sh
 
-normalizar:  ## converte fontes/ -> texto/ (um dispositivo por linha)
-	@for f in fontes/*/*.html; do \
-	  n=$$(basename $$f .html); \
-	  python3 scripts/normalizar.py $$f texto/$$n.txt; \
-	done
+validar:     ## confere o SHA-256 de cada .txt contra o MANIFESTO.md
+	@python3 validar.py
 
-validar:     ## confere integridade de todos os textos normalizados
-	@python3 scripts/validar.py
-
-mudou:       ## o que mudou desde o último commit
-	@git diff --stat -- texto/ || true
-	@git diff -U0 -- texto/ | grep -E '^[+-][^+-]' || echo "  (sem alterações)"
+mudou:       ## mostra o que mudou nos textos desde o último commit
+	@git diff --stat -- '*.txt' || true
+	@git diff -U0 -- '*.txt' | grep -E '^[+-][^+-]' || echo "  (sem alterações)"
